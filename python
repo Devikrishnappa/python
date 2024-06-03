@@ -1,0 +1,179 @@
+//EXP1 GCD
+import math
+def find_gcd():
+    num1 = int(input("Enter the first number: "))
+    num2 = int(input("Enter the second number: "))
+    gcd = math.gcd(num1, num2)
+    print(f"The GCD of {num1} and {num2} is {gcd}")
+find_gcd()
+
+//EXP2 SQUARE ROOT
+def newton_sqrt(n, tolerance=0.0001):
+    if n < 0:
+        raise ValueError("Cannot compute square root of a negative number")
+    guess = n
+    while True:
+        next_guess = (guess + n / guess) / 2
+        if abs(next_guess - guess) < tolerance:
+            return next_guess
+        guess = next_guess
+number = float(input("Enter a number to find the square root: "))
+sqrt_result = newton_sqrt(number)
+print(f"The square root of {number} is approximately {sqrt_result}")
+
+//EXP3 EXPONENT
+def calculate_exponent():
+    base = float(input("Enter the base number: "))
+    exponent = float(input("Enter the exponent: "))
+    result = base ** exponent
+    print(f"{base} raised to the power of {exponent} is {result}")
+calculate_exponent()
+
+//EXP4 LARGEST OF THREEE NUMBERS
+def find_three_largest_numbers():
+    numbers = list(map(float, input("Enter a list of numbers separated by spaces: ").split()))
+    first = second = third = float('-inf')
+    for num in numbers:
+        if num > first:
+            third = second
+            second = first
+            first = num
+        elif num > second:
+            third = second
+            second = num
+        elif num > third:
+            third = num
+    return [first, second, third]
+largest_three = find_three_largest_numbers()
+if largest_three:
+    print(f"The three largest numbers in the list are: {largest_three}")
+
+//EXP5A LINEAR SEARCH
+my_list = []
+n = int(input("Enter the number of elements you want to add to the list: "))
+for i in range(n):
+    element = input(f"Enter element {i+1}: ")
+    my_list.append(element)
+print("The list created is:", my_list)
+search_item = input("Enter the element you want to search: ")
+if search_item in my_list:
+    print(f"Element '{search_item}' found in the list.")
+else:
+    print(f"Element '{search_item}' not found in the list.")
+
+//EXP5B  BINARY SEARCH
+def binary_search(arr, x):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == x:
+            return mid
+        elif arr[mid] < x:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+arr = list(map(int, input("Enter the sorted elements of the array separated by spaces: ").split()))
+x = int(input("Enter the element you want to search for: "))
+result = binary_search(arr, x)
+if result != -1:
+    print(f"Element is present at index {result}")
+else:
+    print("Element is not present in the array")
+
+//EXP6A
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_index = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+arr = [int(x) for x in input("Enter the elements of the array separated by spaces: ").split()]
+selection_sort(arr)
+print("Sorted array is:", arr)
+
+//EXP6B
+
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
+
+numbers = list(map(float, input("Enter a list of numbers separated by spaces: ").split()))
+sorted_numbers = insertion_sort(numbers)
+print(f"Sorted list: {sorted_numbers}")
+
+//EXP6C
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left_half = merge_sort(arr[:mid])
+    right_half = merge_sort(arr[mid:])
+    sorted_arr = []
+    left_idx = right_idx = 0
+    while left_idx < len(left_half) and right_idx < len(right_half):
+        if left_half[left_idx] < right_half[right_idx]:
+            sorted_arr.append(left_half[left_idx])
+            left_idx += 1
+        else:
+            sorted_arr.append(right_half[right_idx])
+            right_idx += 1
+    sorted_arr.extend(left_half[left_idx:])
+    sorted_arr.extend(right_half[right_idx:])
+    return sorted_arr
+numbers = list(map(float, input("Enter a list of numbers separated by spaces: ").split()))
+sorted_numbers = merge_sort(numbers)
+print(f"Sorted list: {sorted_numbers}")
+
+//EXP7   MATRIX MULTIPLICATION
+
+def matrix_multiplication(matrix1, matrix2):
+    result = []
+    for i in range(len(matrix1)):
+        row = []
+        for j in range(len(matrix2[0])):
+            product = sum(matrix1[i][k] * matrix2[k][j] for k in range(len(matrix2)))
+            row.append(product)
+        result.append(row)
+    return result
+m1, n1 = map(int, input("Enter the dimensions of the first matrix (rows columns): ").split())
+m2, n2 = map(int, input("Enter the dimensions of the second matrix (rows columns): ").split())
+if n1 != m2:
+    print("Matrices cannot be multiplied. Columns of the first matrix must be equal to rows of the second matrix.")
+else:
+    matrix1 = [[int(input(f"Enter element [{i+1}][{j+1}] of the first matrix: ")) for j in range(n1)] for i in range(m1)]
+    matrix2 = [[int(input(f"Enter element [{i+1}][{j+1}] of the second matrix: ")) for j in range(n2)] for i in range(m2)]
+    result = matrix_multiplication(matrix1, matrix2)
+    print("Result of matrix multiplication:")
+    for row in result:
+        print(row)
+
+//EXP8 
+
+import sys
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python script.py '<statement>'")
+        return
+    statement = sys.argv[1]
+    words = statement.split()
+    word_count = len(words)
+    sorted_words = sorted(words)
+    print(f"Original statement: {statement}")
+    print(f"Word count: {word_count}")
+    print(f"Sorted words: {' '.join(sorted_words)}")
+if __name__ == "__main__":
+    main()
+
+//EXP10
+
+
