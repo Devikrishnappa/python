@@ -177,3 +177,67 @@ if __name__ == "__main__":
 //EXP10
 
 
+text=open("file.txt","r")
+d=dict()
+for line in text:
+    line=line.lower()
+    line=line.strip()
+    words=line.split(" ")
+    for word in words:
+        if word in d:
+            d[word]=d[word]+1
+        else:
+            d[word]=1
+for key in list(d.keys()):
+    print(key," : ",d[key])
+    
+
+Experiment-10:
+
+Installation Commands:
+py --version
+py -m pip --version
+py -m pip install pygame
+py name.py
+
+Elliptical Orbit
+import pygame 
+from pygame.locals import *
+import math,time
+pygame.init()
+screen=pygame.display.set_mode((500,300))
+for degree in range(360):
+    radian=degree*math.pi/180
+    screen.fill((255,255,255))
+    pygame.draw.ellipse(screen,(0,255,0),(100,100,200,40),2)
+    x=math.cos(radian)*100
+    y=math.sin(radian)*20
+    pygame.draw.circle(screen,(255,0,0),(int(x)+200,int(y)+120),8,0)
+    time.sleep(0.05)
+    pygame.display.update()
+pygame.quit()
+
+
+Bouncing Ball
+
+import pygame
+import time
+pygame.init()
+screen=pygame.display.set_mode((500,300))
+y=1
+direction=1
+counter=0
+while True:
+    screen.fill((255,255,255))
+    pygame.draw.circle(screen, (255,0,0), (250,y),13,0)
+    pygame.display.update()
+    time.sleep(.006)
+    if y==300:
+        direction=-1
+    elif y==0:
+        direction=1
+        counter=counter+1
+    y=y+direction
+    if counter==3: 
+        pygame.quit()
+        break
